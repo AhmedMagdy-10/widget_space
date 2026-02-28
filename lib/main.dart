@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:widget_space/feature/splash/Ui/splash_screen.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: const Color(0xFFE0E5EC),
         fontFamily: 'Cairo',
       ),
       home: SplashView(),
