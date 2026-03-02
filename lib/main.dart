@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:widget_space/core/utils/app_colors.dart';
+import 'package:widget_space/feature/auth/presentation/view/sign_in_view.dart';
 
-import 'package:widget_space/feature/splash/Ui/splash_screen.dart';
+import 'generated/l10n.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,8 +20,18 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFE0E5EC),
         fontFamily: 'Cairo',
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.seconderyColor),
       ),
-      home: SplashView(),
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      locale: const Locale('ar'),
+
+      home: LoginView(),
     );
   }
 }
