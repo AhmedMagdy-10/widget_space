@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:widget_space/core/widgets/skeuo_container.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -110,65 +111,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
           ),
         ],
       ),
-    );
-  }
-}
-
-/// 🎨 ويدجت مخصصة لعمل تأثير Skeuomorphism (بارز أو محفور)
-class SkeuoContainer extends StatelessWidget {
-  final Widget child;
-  final EdgeInsetsGeometry? padding;
-  final BorderRadius? borderRadius;
-  final bool isInset; // هل التأثير محفور للداخل؟
-
-  const SkeuoContainer({
-    super.key,
-    required this.child,
-    this.padding,
-    this.borderRadius,
-    this.isInset = false, // الافتراضي بارز للخارج
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      decoration: BoxDecoration(
-        color: const Color(0xFFE0E5EC), // نفس لون الخلفية تماماً
-        borderRadius: borderRadius ?? BorderRadius.circular(20),
-        boxShadow: isInset
-            ? [
-                // 🕳️ تأثير الحفر للداخل (Inset Shadows)
-                BoxShadow(
-                  color: Colors.white.withOpacity(0.9),
-                  offset: const Offset(4, 4),
-                  blurRadius: 4,
-                  spreadRadius: -2, //spread سالب للحفر
-                ),
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
-                  offset: const Offset(-4, -4),
-                  blurRadius: 4,
-                  spreadRadius: -2,
-                ),
-              ]
-            : [
-                // ⛰️ تأثير البروز للخارج (Outset Shadows)
-                BoxShadow(
-                  color: Colors.black.withOpacity(
-                    0.2,
-                  ), // الظل الغامق (أسفل يمين)
-                  offset: const Offset(9, 9),
-                  blurRadius: 16,
-                ),
-                const BoxShadow(
-                  color: Colors.white, // الإضاءة الفاتحة (أعلى يسار)
-                  offset: Offset(-9, -9),
-                  blurRadius: 16,
-                ),
-              ],
-      ),
-      child: child,
     );
   }
 }

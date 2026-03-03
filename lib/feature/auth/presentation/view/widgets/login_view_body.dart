@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/core/widgets/build_custom_app_bar.dart';
 import 'package:widget_space/core/widgets/custom_button.dart';
+import 'package:widget_space/core/widgets/skeuo_container.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/custom_text_form_field.dart';
-import 'package:widget_space/feature/splash/Ui/widgets/splash_view_body.dart';
+import 'package:widget_space/feature/auth/presentation/view/widgets/or_divider.dart';
+import 'package:widget_space/feature/auth/presentation/view/widgets/social_login_button.dart';
 
 class LoginViewBody extends StatefulWidget {
   const LoginViewBody({super.key});
@@ -59,6 +61,26 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             SizedBox(height: 20),
 
             CustomButton(onPressed: () {}, data: 'تسجيل الدخول'),
+            SizedBox(height: 33),
+            OrDivider(),
+            SizedBox(height: 33),
+            SocialLoginButton(
+              onPressed: () {},
+              image: 'assets/images/google_icon.svg',
+              title: 'تسجيل الدخول باستخدام جوجل',
+            ),
+            SizedBox(height: 16),
+            SocialLoginButton(
+              onPressed: () {},
+              image: 'assets/images/facebook_icon.svg',
+              title: 'تسجيل الدخول باستخدام فيسبوك',
+            ),
+            SizedBox(height: 16),
+            SocialLoginButton(
+              onPressed: () {},
+              image: 'assets/images/apple_icon.svg',
+              title: 'تسجيل الدخول باستخدام أبل',
+            ),
           ],
         ),
       ),
