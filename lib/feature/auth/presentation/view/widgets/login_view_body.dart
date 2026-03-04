@@ -4,6 +4,7 @@ import 'package:widget_space/core/widgets/build_custom_app_bar.dart';
 import 'package:widget_space/core/widgets/custom_button.dart';
 import 'package:widget_space/core/widgets/skeuo_container.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/custom_text_form_field.dart';
+import 'package:widget_space/feature/auth/presentation/view/widgets/dont_have_account_widget.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/or_divider.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/social_login_button.dart';
 
@@ -61,9 +62,13 @@ class _LoginViewBodyState extends State<LoginViewBody> {
             SizedBox(height: 20),
 
             CustomButton(onPressed: () {}, data: 'تسجيل الدخول'),
-            SizedBox(height: 33),
+
+            SizedBox(height: 20),
+            DontHaveAccountWidget(),
+            SizedBox(height: 30),
+
             OrDivider(),
-            SizedBox(height: 33),
+            SizedBox(height: 31),
             SocialLoginButton(
               onPressed: () {},
               image: 'assets/images/google_icon.svg',

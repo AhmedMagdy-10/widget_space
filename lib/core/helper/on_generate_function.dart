@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:widget_space/feature/auth/presentation/view/sign_in_view.dart';
+import 'package:widget_space/feature/auth/presentation/view/login_view.dart';
 import 'package:widget_space/feature/splash/Ui/splash_screen.dart';
 
 Route<dynamic>? onGenerateFunction(RouteSettings settings) {
