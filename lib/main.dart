@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:widget_space/core/helper/on_generate_function.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/feature/auth/presentation/view/login_view.dart';
 
@@ -32,8 +33,8 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
       builder: DevicePreview.appBuilder,
-
-      home: LoginView(),
+      onGenerateRoute: onGenerateFunction,
+      initialRoute: LoginView.routeName,
     );
   }
 }
