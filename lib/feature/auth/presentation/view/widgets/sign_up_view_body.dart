@@ -5,6 +5,7 @@ import 'package:widget_space/core/widgets/custom_button.dart';
 import 'package:widget_space/core/widgets/skeuo_container.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/have_an_account.dart';
+import 'package:widget_space/feature/auth/presentation/view/widgets/terms_and_conditions_widget.dart';
 
 class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({super.key});
@@ -67,8 +68,14 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
               controller: passwordController,
               obscureText: true,
             ),
+            SizedBox(height: 16),
+            TermsAndConditionsWidget(
+              onChanged: (isChecked) {
+                // يمكنك التعامل مع حالة الموافقة هنا إذا لزم الأمر
+              },
+            ),
 
-            SizedBox(height: 20),
+            SizedBox(height: 30),
 
             CustomButton(onPressed: () {}, data: 'إنشاء حساب'),
             SizedBox(height: 20),

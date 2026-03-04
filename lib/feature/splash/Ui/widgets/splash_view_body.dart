@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:widget_space/core/widgets/skeuo_container.dart';
+import 'package:widget_space/feature/auth/presentation/view/login_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -20,6 +21,7 @@ class _SplashViewBodyState extends State<SplashViewBody>
   @override
   void initState() {
     super.initState();
+    excuteNavigation(); // تنفيذ التنقل بعد تأخير معين
 
     // إعداد الـ Controller للنص (لم يتغير)
     _controller = AnimationController(
@@ -81,11 +83,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
                     Transform.translate(
                       offset: Offset(0, _animation.value),
                       child: const Text(
-                        'Widget ',
+                        'Space ',
                         style: TextStyle(
-                          fontSize: 28, // تكبير الخط قليلاً
-                          fontWeight: FontWeight.w900, // خط سميك جداً
-                          color: Colors.lightBlueAccent,
+                          fontSize: 28,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0Xff2D9F5D),
                           letterSpacing: 1.2,
                         ),
                       ),
@@ -95,11 +97,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
                     Transform.translate(
                       offset: Offset(0, -_animation.value),
                       child: const Text(
-                        'Space',
+                        'Widget',
                         style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.w900,
-                          color: Color(0Xff2D9F5D),
+                          fontSize: 28, // تكبير الخط قليلاً
+                          fontWeight: FontWeight.w900, // خط سميك جداً
+                          color: Colors.lightBlueAccent,
                           letterSpacing: 1.2,
                         ),
                       ),
@@ -112,5 +114,11 @@ class _SplashViewBodyState extends State<SplashViewBody>
         ],
       ),
     );
+  }
+
+  void excuteNavigation() {
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, LoginView.routeName);
+    });
   }
 }

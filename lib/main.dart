@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:widget_space/core/helper/on_generate_function.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/feature/auth/presentation/view/login_view.dart';
+import 'package:widget_space/feature/splash/Ui/splash_screen.dart';
 
 import 'generated/l10n.dart';
 
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       locale: const Locale('ar'),
       builder: DevicePreview.appBuilder,
       onGenerateRoute: onGenerateFunction,
-      initialRoute: LoginView.routeName,
+      initialRoute: SplashView.routeName,
     );
   }
 }
