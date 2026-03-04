@@ -47,6 +47,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             ),
             SizedBox(height: 20),
             CustomTextFormField(
+              suffixIcon: Icon(
+                Icons.person_outline,
+                color: AppColors.seconderyColor,
+              ),
               hintText: 'الاسم الكامل',
               textInputType: TextInputType.name,
               controller: nameController,
@@ -54,6 +58,10 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
             SizedBox(height: 20),
             CustomTextFormField(
               hintText: 'البريد الإلكتروني',
+              suffixIcon: Icon(
+                Icons.email_outlined,
+                color: AppColors.seconderyColor,
+              ),
               textInputType: TextInputType.emailAddress,
               controller: emailController,
             ),
