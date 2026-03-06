@@ -1,4 +1,4 @@
-import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:widget_space/feature/auth/domain/entites/user_entity.dart';
 
 class UserModel extends UserEntity {
@@ -6,11 +6,9 @@ class UserModel extends UserEntity {
 
   factory UserModel.formFirebase(User user) {
     return UserModel(
-      name:
-          user.userMetadata!['name'] ??
-          'No Name', // تأكد من وجود الاسم في userMetadata
-      email: user.email!,
-      uId: user.id,
+      name: user.displayName ?? '',
+      email: user.email ?? '',
+      uId: user.uid,
     );
   }
 }

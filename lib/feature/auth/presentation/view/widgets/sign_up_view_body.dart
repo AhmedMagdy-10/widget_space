@@ -34,8 +34,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            buildAppBar(context, 'حساب جديد'),
-            SizedBox(height: 40),
+            SizedBox(height: 24),
             const SkeuoContainer(
               padding: EdgeInsets.all(16),
 
