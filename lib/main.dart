@@ -1,8 +1,10 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:widget_space/core/helper/on_generate_function.dart';
+import 'package:widget_space/core/services/bloc_observer.dart';
 import 'package:widget_space/core/services/get_it_service.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/feature/splash/Ui/splash_screen.dart';
@@ -15,6 +17,8 @@ void main() async {
   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
   setupGetIt();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  Bloc.observer = CustomBlocObserver();
+  // يمكنك تخصيص BlocObserver الخاص بك إذا كنت ترغب في ذلك
 }
 
 class MyApp extends StatelessWidget {

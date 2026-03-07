@@ -7,7 +7,6 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     required this.textInputType,
     this.suffixIcon,
-    required this.controller,
     this.onSaved,
     this.obscureText = false,
   });
@@ -15,7 +14,6 @@ class CustomTextFormField extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final Widget? suffixIcon;
-  final TextEditingController controller;
   final void Function(String?)? onSaved;
   final bool obscureText;
 
@@ -43,7 +41,7 @@ class CustomTextFormField extends StatelessWidget {
       child: TextFormField(
         obscureText: obscureText,
         onSaved: onSaved,
-        controller: controller,
+     
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'هذا الحقل مطلوب';

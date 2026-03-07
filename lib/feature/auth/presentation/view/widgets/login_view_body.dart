@@ -16,84 +16,101 @@ class LoginViewBody extends StatefulWidget {
 }
 
 class _LoginViewBodyState extends State<LoginViewBody> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
   @override
   void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
     super.dispose();
   }
+
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  late String email, password;
+  bool isPasswordVisible = true;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            buildAppBar(context, 'تسجيل الدخول'),
-            SizedBox(height: 40),
-            SkeuoContainer(
-              padding: const EdgeInsets.all(16),
-              child: Icon(
-                size: 50,
-                Icons.lock_person_rounded,
-                color: AppColors.seconderyColor,
+        child: Form(
+          key: formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              buildAppBar(context, 'تسجيل الدخول'),
+              SizedBox(height: 40),
+              SkeuoContainer(
+                padding: const EdgeInsets.all(16),
+                child: Icon(
+                  size: 50,
+                  Icons.lock_person_rounded,
+                  color: AppColors.seconderyColor,
+                ),
               ),
-            ),
-            SizedBox(height: 20),
+              SizedBox(height: 20),
 
-            CustomTextFormField(
-              suffixIcon: Icon(
-                Icons.email_outlined,
-                color: AppColors.seconderyColor,
+              CustomTextFormField(
+                onSaved: (value) {
+                  email = value!;
+                },
+                suffixIcon: Icon(
+                  Icons.email_outlined,
+                  color: AppColors.seconderyColor,
+                ),
+                hintText: 'البريد الإلكتروني',
+                textInputType: TextInputType.emailAddress,
               ),
-              hintText: 'البريد الإلكتروني',
-              textInputType: TextInputType.emailAddress,
-              controller: emailController,
-            ),
-            SizedBox(height: 20),
-            CustomTextFormField(
-              controller: passwordController,
-              hintText: 'كلمة المرور',
-              textInputType: TextInputType.visiblePassword,
-              obscureText: true,
-              suffixIcon: Icon(
-                Icons.visibility_off,
-                color: AppColors.seconderyColor,
+              SizedBox(height: 20),
+              CustomTextFormField(
+                onSaved: (value) {
+                  password = value!;
+                },
+                obscureText: isPasswordVisible,
+                hintText: 'كلمة المرور',
+                textInputType: TextInputType.visiblePassword,
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    // يمكنك تعريف سلوك عند النقر على أيقونة العين هنا
+                    setState(() {
+                      isPasswordVisible = !isPasswordVisible;
+                    });
+                  },
+                  child: isPasswordVisible
+                      ? Icon(
+                          Icons.visibility_off,
+                          color: AppColors.seconderyColor,
+                        )
+                      : Icon(Icons.visibility, color: AppColors.seconderyColor),
+                ),
               ),
-            ),
-            SizedBox(height: 20),
+              SizedBox(height: 20),
 
-            CustomButton(onPressed: () {}, data: 'تسجيل الدخول'),
+              CustomButton(onPressed: () {}, data: 'تسجيل الدخول'),
 
-            SizedBox(height: 20),
-            DontHaveAccountWidget(),
-            SizedBox(height: 30),
+              SizedBox(height: 20),
+              DontHaveAccountWidget(),
+              SizedBox(height: 30),
 
-            OrDivider(),
-            SizedBox(height: 31),
-            SocialLoginButton(
-              onPressed: () {},
-              image: 'assets/images/google_icon.svg',
-              title: 'تسجيل الدخول باستخدام جوجل',
-            ),
-            SizedBox(height: 16),
-            SocialLoginButton(
-              onPressed: () {},
-              image: 'assets/images/facebook_icon.svg',
-              title: 'تسجيل الدخول باستخدام فيسبوك',
-            ),
-            SizedBox(height: 16),
-            SocialLoginButton(
-              onPressed: () {},
-              image: 'assets/images/apple_icon.svg',
-              title: 'تسجيل الدخول باستخدام أبل',
-            ),
-          ],
+              OrDivider(),
+              SizedBox(height: 31),
+              SocialLoginButton(
+                onPressed: () {},
+                image: 'assets/images/google_icon.svg',
+                title: 'تسجيل الدخول باستخدام جوجل',
+              ),
+              SizedBox(height: 16),
+              SocialLoginButton(
+                onPressed: () {},
+                image: 'assets/images/facebook_icon.svg',
+                title: 'تسجيل الدخول باستخدام فيسبوك',
+              ),
+              SizedBox(height: 16),
+              SocialLoginButton(
+                onPressed: () {},
+                image: 'assets/images/apple_icon.svg',
+                title: 'تسجيل الدخول باستخدام أبل',
+              ),
+            ],
+          ),
         ),
       ),
     );
