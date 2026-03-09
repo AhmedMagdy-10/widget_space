@@ -6,18 +6,12 @@ class LogInCubit extends Cubit<LogInCubitStates> {
   LogInCubit(this.authRepo) : super(LogInInitialState());
   final AuthRepo authRepo;
 
-  Future<void> createUserWithEmailAndPassword(
-    String email,
-    String password,
-    String name,
-  ) async {
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     emit(LogInLoadingState());
-
-    final result = await authRepo.createUserWithEmailAndPassword(
-      email,
-      password,
-      name,
-    );
+    var result = await authRepo.signInWithEmailAndPassword(email, password);
     result.fold(
       (failure) => emit(LogInErrorState(message: failure.message)),
       (userEntity) => emit(LogInSuccessState(userEntity: userEntity)),

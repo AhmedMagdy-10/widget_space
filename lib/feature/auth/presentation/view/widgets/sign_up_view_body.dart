@@ -21,7 +21,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String email, userName, password;
-  bool isPasswordVisible = false;
+  bool isPasswordVisible = true;
   bool isTermsAccepted = false;
 
   @override
@@ -105,8 +105,6 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   setState(() {
                     isTermsAccepted = isChecked;
                   });
-
-                  print('isTermsAccepted: $isTermsAccepted');
                 },
               ),
 

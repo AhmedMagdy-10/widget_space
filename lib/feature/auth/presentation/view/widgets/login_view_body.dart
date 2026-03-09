@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/core/widgets/build_custom_app_bar.dart';
 import 'package:widget_space/core/widgets/custom_button.dart';
 import 'package:widget_space/core/widgets/skeuo_container.dart';
+import 'package:widget_space/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/custom_text_form_field.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/dont_have_account_widget.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/or_divider.dart';
@@ -75,16 +77,32 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                     });
                   },
                   child: isPasswordVisible
-                      ? Icon(
+                      ? Icon(Icons.visibility, color: AppColors.seconderyColor)
+                      : Icon(
                           Icons.visibility_off,
                           color: AppColors.seconderyColor,
-                        )
-                      : Icon(Icons.visibility, color: AppColors.seconderyColor),
+                        ),
                 ),
               ),
               SizedBox(height: 20),
 
-              CustomButton(onPressed: () {}, data: 'تسجيل الدخول'),
+              CustomButton(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    // يمكنك تنفيذ عملية تسجيل الدخول هنا باستخدام القيم المحفوظة في المتغيرات email و password
+                    context.read<LogInCubit>().signInWithEmailAndPassword(
+                      email: email,
+                      password: password,
+                    );
+                  } else {
+                    setState(() {
+                      autovalidateMode = AutovalidateMode.always;
+                    });
+                  }
+                },
+                data: 'تسجيل الدخول',
+              ),
 
               SizedBox(height: 20),
               DontHaveAccountWidget(),

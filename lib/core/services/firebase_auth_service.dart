@@ -29,4 +29,34 @@ class FirebaseAuthService {
       );
     }
   }
+
+  Future<User> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        throw CustomExpection(
+          message: 'لا يوجد مستخدم بهذا البريد الإلكتروني.',
+        );
+      } else if (e.code == 'wrong-password') {
+        throw CustomExpection(message: 'كلمة المرور غير صحيحة.');
+      } else {
+        throw CustomExpection(
+          message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق.',
+        );
+      }
+    } catch (e) {
+      throw CustomExpection(
+        message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق.',
+      );
+    }
+  }
 }
