@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:widget_space/core/errors/custom_expection.dart';
 
 class FirebaseAuthService {
@@ -53,6 +55,31 @@ class FirebaseAuthService {
           message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق.',
         );
       }
+    } catch (e) {
+      throw CustomExpection(
+        message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق.',
+      );
+    }
+  }
+
+  Future<User> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser!.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+    try {
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
+      return userCredential.user!;
+    } on FirebaseAuthException catch (e) {
+      throw CustomExpection(
+        message: 'حصل خطأ أثناء تسجيل الدخول باستخدام جوجل: ${e.message}',
+      );
     } catch (e) {
       throw CustomExpection(
         message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق.',

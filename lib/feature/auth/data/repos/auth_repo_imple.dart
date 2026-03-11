@@ -6,6 +6,8 @@ import 'package:widget_space/core/errors/custom_expection.dart';
 import 'package:widget_space/core/errors/failures.dart';
 import 'package:widget_space/core/services/database_service.dart';
 import 'package:widget_space/core/services/firebase_auth_service.dart';
+import 'package:widget_space/core/utils/backend_end_points.dart';
+import 'package:widget_space/feature/auth/data/models/user_model.dart';
 import 'package:widget_space/feature/auth/domain/entites/user_entity.dart';
 import 'package:widget_space/feature/auth/domain/repo/auth_repo.dart';
 
@@ -80,21 +82,51 @@ class AuthRepoImple extends AuthRepo {
     }
   }
 
-  // Future addUserData({required UserEntity user}) async {
-  //   await databaseService.addData(
-  //     path: BackendEndpoint.addUserData,
-  //     data: UserModel.fromEntity(user).toMap(),
-  //     documentId: user.uId,
-  //   );
-  // }
+  @override
+  Future<Either<Failures, UserEntity>> signinWithGoogle() async {
+    User user;
+    try {
+      user = await firebaseAuthService.signInWithGoogle();
+      var userEntity = UserModel.fromFirebaseUser(user);
 
-  // Future<UserEntity> getUserData({required String uid}) async {
-  //   var userData = await databaseService.getData(
-  //     path: BackendEndpoint.getUsersData,
-  //     docuementId: uid,
-  //   );
-  //   return UserModel.fromJson(userData);
-  // }
+      return right(userEntity);
+    } catch (e) {
+      log(
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
+      );
+    }
+    return left(
+      ServerFailure(message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق. '),
+    );
+  }
+
+  @override
+  Future<Either<Failures, UserEntity>> signinWithFacebook() {
+    // TODO: implement signinWithFacebook
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Either<Failures, UserEntity>> signinWithApple() {
+    // TODO: implement signinWithApple
+    throw UnimplementedError();
+  }
+
+  Future addUserData({required UserEntity user}) async {
+    await databaseService.addData(
+      path: BackendEndpoint.addUserData,
+      data: UserModel.fromEntity(user).toMap(),
+      documentId: user.uId,
+    );
+  }
+
+  Future<UserEntity> getUserData({required String uid}) async {
+    var userData = await databaseService.getData(
+      path: BackendEndpoint.getUsersData,
+      docuementId: uid,
+    );
+    return UserModel.fromJson(userData);
+  }
 
   // Future saveUserData({required UserEntity user}) async {
   //   var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());

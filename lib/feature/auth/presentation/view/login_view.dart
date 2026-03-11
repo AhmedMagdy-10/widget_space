@@ -7,6 +7,7 @@ import 'package:widget_space/feature/auth/domain/repo/auth_repo.dart';
 import 'package:widget_space/feature/auth/presentation/manager/login_cubit/login_cubit.dart';
 import 'package:widget_space/feature/auth/presentation/manager/login_cubit/login_cubit_states.dart';
 import 'package:widget_space/feature/auth/presentation/view/widgets/login_view_body.dart';
+import 'package:widget_space/feature/home/Ui/views/main_view.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -20,6 +21,7 @@ class LoginView extends StatelessWidget {
           listener: (BuildContext context, LogInCubitStates state) {
             if (state is LogInSuccessState) {
               // Handle successful login, e.g., navigate to the home screen
+              Navigator.pushReplacementNamed(context, MainView.routeName);
               showToast(
                 text: ' تم تسجيل الدخول بنجاح',
                 state: ToastStates.success,

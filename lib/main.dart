@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       supportedLocales: S.delegate.supportedLocales,
       locale: const Locale('ar'),
       builder: DevicePreview.appBuilder,
-      onGenerateRoute: onGenerateFunction,
+      onGenerateRoute: onGenerateRoute,
       initialRoute: SplashView.routeName,
     );
   }
