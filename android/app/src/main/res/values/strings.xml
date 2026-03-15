@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">widget_space</string>
+  <string name="facebook_app_id">1988807752055820</string>
+  <string name="fb_login_protocol_scheme">fb5c175e1f8cbdc076853194d813d14a1b</string>
+  <string name="facebook_client_token">6602f84d71904a8fe8dfbe4c3763ad39</string>
+</resources>
+

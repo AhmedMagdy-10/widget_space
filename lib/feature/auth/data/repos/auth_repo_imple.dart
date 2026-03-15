@@ -101,9 +101,21 @@ class AuthRepoImple extends AuthRepo {
   }
 
   @override
-  Future<Either<Failures, UserEntity>> signinWithFacebook() {
-    // TODO: implement signinWithFacebook
-    throw UnimplementedError();
+  Future<Either<Failures, UserEntity>> signinWithFacebook() async {
+    User user;
+    try {
+      user = await firebaseAuthService.signInWithFacebook();
+      var userEntity = UserModel.fromFirebaseUser(user);
+
+      return right(userEntity);
+    } catch (e) {
+      log(
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
+      );
+    }
+    return left(
+      ServerFailure(message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق. '),
+    );
   }
 
   @override
