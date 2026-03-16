@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:widget_space/core/services/firebase_auth_service.dart';
 import 'package:widget_space/core/widgets/skeuo_container.dart';
 import 'package:widget_space/feature/auth/presentation/view/login_view.dart';
+import 'package:widget_space/feature/home/Ui/views/main_view.dart';
 
 class SplashViewBody extends StatefulWidget {
   const SplashViewBody({super.key});
@@ -118,7 +120,12 @@ class _SplashViewBodyState extends State<SplashViewBody>
 
   void excuteNavigation() {
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, LoginView.routeName);
+      if (FirebaseAuthService().isUserLoggedIn()) {
+        Navigator.pushReplacementNamed(context, MainView.routeName);
+        return;
+      } else {
+        Navigator.pushReplacementNamed(context, LoginView.routeName);
+      }
     });
   }
 }
