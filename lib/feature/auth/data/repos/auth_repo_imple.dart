@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
@@ -6,6 +7,7 @@ import 'package:widget_space/core/errors/custom_expection.dart';
 import 'package:widget_space/core/errors/failures.dart';
 import 'package:widget_space/core/services/database_service.dart';
 import 'package:widget_space/core/services/firebase_auth_service.dart';
+import 'package:widget_space/core/services/shared_preferences.dart';
 import 'package:widget_space/core/utils/backend_end_points.dart';
 import 'package:widget_space/feature/auth/data/models/user_model.dart';
 import 'package:widget_space/feature/auth/domain/entites/user_entity.dart';
@@ -38,6 +40,7 @@ class AuthRepoImple extends AuthRepo {
         name: name,
         uId: user.uid,
       );
+      await addUserData(user: userEntity);
       return right(userEntity);
     } on CustomExpection catch (e) {
       return left(ServerFailure(message: e.message));
@@ -69,6 +72,7 @@ class AuthRepoImple extends AuthRepo {
         name: user.displayName ?? '',
         uId: user.uid,
       );
+      await saveUserData(user: userEntity);
 
       return right(userEntity);
     } on CustomExpection catch (e) {
@@ -88,12 +92,22 @@ class AuthRepoImple extends AuthRepo {
     try {
       user = await firebaseAuthService.signInWithGoogle();
       var userEntity = UserModel.fromFirebaseUser(user);
+      var isUserExist = await databaseService.checkIfDataExists(
+        path: 'users',
+        docuementId: user.uid,
+      );
+
+      if (isUserExist) {
+        var fetchedUser = await getUserData(uid: user.uid);
+        await saveUserData(user: fetchedUser);
+      } else {
+        await addUserData(user: userEntity);
+        await saveUserData(user: userEntity);
+      }
 
       return right(userEntity);
     } catch (e) {
-      log(
-        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
-      );
+      log('Exception in AuthRepoImpl.signinWithGoogle: ${e.toString()}');
     }
     return left(
       ServerFailure(message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق. '),
@@ -106,12 +120,10 @@ class AuthRepoImple extends AuthRepo {
     try {
       user = await firebaseAuthService.signInWithFacebook();
       var userEntity = UserModel.fromFirebaseUser(user);
-
+      await addUserData(user: userEntity);
       return right(userEntity);
     } catch (e) {
-      log(
-        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
-      );
+      log('Exception in AuthRepoImpl.signinWithFacebook: ${e.toString()}');
     }
     return left(
       ServerFailure(message: 'حصل خطأ غير متوقع، يرجى المحاولة في وقت لاحق. '),
@@ -124,6 +136,7 @@ class AuthRepoImple extends AuthRepo {
     throw UnimplementedError();
   }
 
+  @override
   Future addUserData({required UserEntity user}) async {
     await databaseService.addData(
       path: BackendEndpoint.addUserData,
@@ -132,6 +145,7 @@ class AuthRepoImple extends AuthRepo {
     );
   }
 
+  @override
   Future<UserEntity> getUserData({required String uid}) async {
     var userData = await databaseService.getData(
       path: BackendEndpoint.getUsersData,
@@ -140,8 +154,9 @@ class AuthRepoImple extends AuthRepo {
     return UserModel.fromJson(userData);
   }
 
-  // Future saveUserData({required UserEntity user}) async {
-  //   var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
-  //   // await Prefs.setString(kUserData, jsonData);
-  // }
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
+    await Prefs.setString('userData', jsonData);
+  }
 }

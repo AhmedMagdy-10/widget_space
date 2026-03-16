@@ -3,6 +3,7 @@ import 'package:widget_space/core/services/database_service.dart';
 
 class FireStoreService implements DatabaseService {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   Future<void> addData({
     required String path,
@@ -10,7 +11,8 @@ class FireStoreService implements DatabaseService {
     String? documentId,
   }) async {
     if (documentId != null) {
-      firestore.collection(path).doc(documentId).set(data);
+      // استخدم await هنا لضمان انتهاء العملية قبل الانتقال للسطر التالي
+      await firestore.collection(path).doc(documentId).set(data);
     } else {
       await firestore.collection(path).add(data);
     }
@@ -20,8 +22,10 @@ class FireStoreService implements DatabaseService {
   Future<bool> checkIfDataExists({
     required String path,
     required String docuementId,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    // التحقق من وجود الوثيقة في Firestore
+    var data = await firestore.collection(path).doc(docuementId).get();
+    return data.exists;
   }
 
   @override
@@ -29,7 +33,13 @@ class FireStoreService implements DatabaseService {
     required String path,
     String? docuementId,
     Map<String, dynamic>? query,
-  }) {
-    throw UnimplementedError();
+  }) async {
+    if (docuementId != null) {
+      // جلب بيانات وثيقة محددة
+      var data = await firestore.collection(path).doc(docuementId).get();
+      return data.data();
+    }
+    // يمكنك لاحقاً تطوير الجزء الخاص بالـ Query هنا
+    return null;
   }
 }

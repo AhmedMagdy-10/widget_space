@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:widget_space/core/helper/on_generate_function.dart';
 import 'package:widget_space/core/services/bloc_observer.dart';
 import 'package:widget_space/core/services/get_it_service.dart';
+import 'package:widget_space/core/services/shared_preferences.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/feature/splash/Ui/splash_screen.dart';
 import 'package:widget_space/firebase_options.dart';
@@ -18,6 +19,7 @@ void main() async {
   setupGetIt();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Bloc.observer = CustomBlocObserver();
+  await Prefs.init();
   // يمكنك تخصيص BlocObserver الخاص بك إذا كنت ترغب في ذلك
 }
 
