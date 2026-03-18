@@ -122,7 +122,6 @@ class _SplashViewBodyState extends State<SplashViewBody>
     Future.delayed(Duration(seconds: 3), () {
       if (FirebaseAuthService().isUserLoggedIn()) {
         Navigator.pushReplacementNamed(context, MainView.routeName);
-        return;
       } else {
         Navigator.pushReplacementNamed(context, LoginView.routeName);
       }

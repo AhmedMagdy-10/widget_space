@@ -24,8 +24,6 @@ class _CustomButtonState extends State<CustomButton> {
   Widget build(BuildContext context) {
     // تحديد ألوان الظلال بناءً على اللون الأساسي (Primary Color)
     // في الـ Skeuomorphism نحتاج لون أغمق قليلاً ولون أفتح (إضاءة)
-    final Color baseColor = AppColors.primaryColor;
-    final Color shadowColor = baseColor.withOpacity(0.5);
     final Color highlightColor = Colors.white.withOpacity(0.3);
 
     return GestureDetector(
