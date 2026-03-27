@@ -8,6 +8,8 @@ class CustomIconShape extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        border: Border.all(color: Colors.black26),
+
         color: const Color(0xFFE0E5EC),
         shape: BoxShape.circle,
         boxShadow: [
@@ -25,8 +27,9 @@ class CustomIconShape extends StatelessWidget {
       ),
 
       child: CircleAvatar(
+        radius: 18,
         backgroundColor: Colors.transparent,
-        child: Icon(icon, size: 20, color: AppColors.seconderyColor),
+        child: Icon(icon, size: 18, color: AppColors.seconderyColor),
       ),
     );
   }
