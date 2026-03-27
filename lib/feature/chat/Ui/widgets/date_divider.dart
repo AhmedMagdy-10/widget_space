@@ -17,7 +17,7 @@ class DateDivider extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
           decoration: BoxDecoration(
-            color: AppColors.lightseconderyColor,
+            color: AppColors.primaryColor,
             borderRadius: BorderRadius.circular(10),
             boxShadow: const [
               BoxShadow(

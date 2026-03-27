@@ -11,19 +11,22 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<MainCubit>(
       create: (context) => MainCubit(),
-      child: Scaffold(
-        body: BlocBuilder<MainCubit, MainCubitStates>(
-          builder: (context, state) {
-            var cubit = BlocProvider.of<MainCubit>(context);
-            return cubit.views[cubit.currentIndexPage];
-          },
-        ),
-        bottomNavigationBar: const BottomBarCustom(),
-        // floatingActionButton: AnimatedSkeuoFAB(
-        //   onPressed: () {},
-        //   icon: Icons.add_comment_rounded,
-        // ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
+      child: BlocBuilder<MainCubit, MainCubitStates>(
+        builder: (context, state) {
+          var cubit = BlocProvider.of<MainCubit>(context);
+          bool isChatScreen = cubit.currentIndexPage == 1;
+          return Scaffold(
+            body: cubit.views[cubit.currentIndexPage],
+
+            bottomNavigationBar: isChatScreen ? null : const BottomBarCustom(),
+            // floatingActionButton: AnimatedSkeuoFAB(
+            //   onPressed: () {},
+            //   icon: Icons.add_comment_rounded,
+            // ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.startFloat,
+          );
+        },
       ),
     );
   }

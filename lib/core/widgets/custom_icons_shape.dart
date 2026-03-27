@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 
 class CustomIconShape extends StatelessWidget {
-  const CustomIconShape({super.key, required this.icon});
+  const CustomIconShape({super.key, required this.icon, required this.onTap});
   final IconData icon;
+ final void Function() onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,10 +27,13 @@ class CustomIconShape extends StatelessWidget {
         ],
       ),
 
-      child: CircleAvatar(
-        radius: 18,
-        backgroundColor: Colors.transparent,
-        child: Icon(icon, size: 18, color: AppColors.seconderyColor),
+      child: GestureDetector(
+        onTap: ,
+        child: CircleAvatar(
+          radius: 18,
+          backgroundColor: Colors.transparent,
+          child: Icon(icon, size: 18, color: AppColors.seconderyColor),
+        ),
       ),
     );
   }

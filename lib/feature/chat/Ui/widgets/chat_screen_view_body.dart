@@ -9,20 +9,31 @@ class ChatScreenViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(16),
-        child: Column(
-          children: [
-            Row(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 UserConnectStatusHeader(),
-                CustomIconShape(icon: Icons.arrow_forward_ios_outlined),
+                CustomIconShape(
+                  icon: Icons.arrow_forward_ios_outlined,
+
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
               ],
             ),
-            DateDivider(label: 'اليوم'),
-          ],
-        ),
+          ),
+          Divider(color: Colors.white),
+
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
+            child: DateDivider(label: 'اليوم'),
+          ),
+        ],
       ),
     );
   }

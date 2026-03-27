@@ -51,7 +51,7 @@ class HomeView extends StatelessWidget {
           ),
         ],
 
-        title: CustomIconShape(icon: Icons.notifications_active),
+        title: CustomIconShape(icon: Icons.notifications_active, onTap: () {}),
       ),
       body: HomeViewBody(),
     );
