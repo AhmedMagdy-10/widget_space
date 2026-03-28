@@ -4,7 +4,7 @@ import 'package:widget_space/core/utils/app_colors.dart';
 class CustomIconShape extends StatelessWidget {
   const CustomIconShape({super.key, required this.icon, required this.onTap});
   final IconData icon;
- final void Function() onTap;
+  final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,7 +28,7 @@ class CustomIconShape extends StatelessWidget {
       ),
 
       child: GestureDetector(
-        onTap: ,
+        onTap: onTap,
         child: CircleAvatar(
           radius: 18,
           backgroundColor: Colors.transparent,
