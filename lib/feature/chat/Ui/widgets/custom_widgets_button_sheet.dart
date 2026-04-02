@@ -4,6 +4,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:widget_space/core/helper/widgets_type.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/core/utils/app_text_styles.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/selected_widget.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/widget_type_picker_item.dart';
 
 Future<void> showWidgetPicker({
@@ -64,9 +65,16 @@ Future<void> showWidgetPicker({
               children: WidgetType.values.asMap().entries.map((entry) {
                 final type = entry.value;
                 return WidgetTypePickerItem(
-                  
                       type: type,
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        selectedWidgetBottomSheet(
+                          context: context,
+                          onSelected: (type) {
+                            onSend(type, {});
+                          },
+                        );
+                      },
                     )
                     .animate(delay: (entry.key * 35).ms)
                     .fadeIn(duration: 250.ms)

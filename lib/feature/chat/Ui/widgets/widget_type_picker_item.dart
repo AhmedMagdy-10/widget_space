@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:widget_space/core/helper/widgets_type.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/core/utils/app_text_styles.dart';
 
-class WidgetTypePickerItem extends StatelessWidget {
+class WidgetTypePickerItem extends StatefulWidget {
   final WidgetType type;
   final VoidCallback onTap;
 
@@ -14,9 +15,23 @@ class WidgetTypePickerItem extends StatelessWidget {
   });
 
   @override
+  State<WidgetTypePickerItem> createState() => _WidgetTypePickerItemState();
+}
+
+class _WidgetTypePickerItemState extends State<WidgetTypePickerItem> {
+  bool _pressed = false;
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTapDown: (_) {
+        setState(() => _pressed = true);
+        HapticFeedback.selectionClick();
+      },
+      onTapUp: (_) {
+        setState(() => _pressed = false);
+        widget.onTap();
+      },
+      onTapCancel: () => setState(() => _pressed = false),
       child: Container(
         padding: EdgeInsets.all(8),
         decoration: BoxDecoration(
@@ -45,12 +60,12 @@ class WidgetTypePickerItem extends StatelessWidget {
 
                 children: [
                   Text(
-                    type.emoji,
+                    widget.type.emoji,
                     style: TextStyles.bold28.copyWith(fontSize: 35),
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    type.label,
+                    widget.type.label,
                     textAlign: TextAlign.center,
                     style: TextStyles.semiBold13.copyWith(
                       fontSize: 14,
@@ -72,7 +87,7 @@ class WidgetTypePickerItem extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  type.limit.limitLabel,
+                  widget.type.limit.limitLabel,
                   textAlign: TextAlign.center,
                   style: TextStyles.medium12.copyWith(
                     color: AppColors.lightseconderyColor,
