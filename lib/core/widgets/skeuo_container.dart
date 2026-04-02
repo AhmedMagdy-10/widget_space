@@ -24,13 +24,13 @@ class SkeuoContainer extends StatelessWidget {
         boxShadow: isInset
             ? [
                 BoxShadow(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.9),
                   offset: const Offset(4, 4),
                   blurRadius: 4,
                   spreadRadius: -2,
                 ),
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   offset: const Offset(-4, -4),
                   blurRadius: 4,
                   spreadRadius: -2,
@@ -38,7 +38,7 @@ class SkeuoContainer extends StatelessWidget {
               ]
             : [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.2),
+                  color: Colors.black.withValues(alpha: 0.2),
                   offset: const Offset(9, 9),
                   blurRadius: 16,
                 ),

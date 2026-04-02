@@ -83,7 +83,7 @@ class _WidgetTypePickerItemState extends State<WidgetTypePickerItem> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                 decoration: BoxDecoration(
-                  color: AppColors.lightseconderyColor.withOpacity(0.1),
+                  color: AppColors.lightseconderyColor.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
