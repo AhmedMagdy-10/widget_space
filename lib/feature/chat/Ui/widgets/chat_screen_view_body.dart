@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:widget_space/core/widgets/custom_icons_shape.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/chat_message.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/custom_text_input_field.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/custom_widgets_button_sheet.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/date_divider.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/user_connect_status_header.dart';
 
@@ -34,9 +35,37 @@ class ChatScreenViewBody extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8, left: 16, right: 16),
             child: DateDivider(label: 'اليوم'),
           ),
+          Expanded(
+            child: ListView(
+              children: [
+                SkeuoChatBubble(
+                  message: "أهلاً بك! كيف يمكنني مساعدتك اليوم في مشروعك؟",
+                  time: "10:30 AM",
+                  isMe: false,
+                ),
+                SkeuoChatBubble(
+                  message: "أريد تصميم واجهة دردشة احترافية باستخدام فلاتر.",
+                  time: "10:32 AM",
+                  isMe: true,
+                ),
+                SkeuoChatBubble(
+                  message:
+                      "تصميم الـ Skeuomorphism يبدو رائعاً جداً، أليس كذلك؟ 🚀",
+                  time: "10:33 AM",
+                  isMe: true,
+                ),
+              ],
+            ),
+          ),
+
           Padding(
             padding: const EdgeInsets.all(16),
-            child: SkeuomorphicChatInput(onSend: (b) {}, onPlusTap: () {}),
+            child: SkeuomorphicChatInput(
+              onSend: (b) {},
+              onPlusTap: () {
+                showWidgetPicker(context: context, onSend: (type, data) {});
+              },
+            ),
           ),
         ],
       ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:widget_space/core/utils/app_colors.dart';
 
 class SkeuomorphicChatInput extends StatefulWidget {
   final Function(String) onSend;
@@ -42,7 +41,7 @@ class _SkeuomorphicChatInputState extends State<SkeuomorphicChatInput> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.all(12),
       decoration: _buildMainOuterDecoration(),
       child: SafeArea(
         child: Row(
@@ -75,6 +74,7 @@ class _SkeuomorphicChatInputState extends State<SkeuomorphicChatInput> {
 
   BoxDecoration _buildMainOuterDecoration() {
     return BoxDecoration(
+      borderRadius: BorderRadius.circular(50),
       color: _bgColor,
       boxShadow: [
         BoxShadow(
@@ -101,7 +101,7 @@ class _SkeuomorphicChatInputState extends State<SkeuomorphicChatInput> {
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
       decoration: BoxDecoration(
         color: _bgColor,
-        borderRadius: BorderRadius.circular(24),
+        borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.8),
