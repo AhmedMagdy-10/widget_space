@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:widget_space/core/utils/app_colors.dart';
 
 class SkeuoContainer extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? padding;
   final BorderRadius? borderRadius;
   final bool isInset;
+  final double? width;
 
   const SkeuoContainer({
     super.key,
@@ -12,14 +14,16 @@ class SkeuoContainer extends StatelessWidget {
     this.padding,
     this.borderRadius,
     this.isInset = false,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: width,
       padding: padding,
       decoration: BoxDecoration(
-        color: const Color(0xFFE0E5EC),
+        color: AppColors.primaryColor,
         borderRadius: borderRadius ?? BorderRadius.circular(20),
         boxShadow: isInset
             ? [

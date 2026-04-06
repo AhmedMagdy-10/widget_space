@@ -4,6 +4,7 @@ import 'package:widget_space/core/helper/widgets_type.dart';
 import 'package:widget_space/core/utils/app_colors.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/limited_banner_widget.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/selected_widget_header.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/sticky_note_composer.dart';
 
 Future<void> selectedWidgetBottomSheet({
   required BuildContext context,
@@ -42,22 +43,26 @@ class SelectedWidgetDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SelectedWidgetHeader(type: type),
-          SizedBox(height: 20),
+      padding: EdgeInsets.only(
+        top: 24,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        left: 16,
+        right: 16,
+      ),
+      child: SingleChildScrollView(
+        reverse: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SelectedWidgetHeader(type: type),
+            SizedBox(height: 20),
 
-          LimitedBanner(type: type),
+            LimitedBanner(type: type),
 
-          SizedBox(height: 20),
-
-          ElevatedButton(
-            onPressed: () => onSend({}),
-            child: Text('إرسال الـ Widget'),
-          ),
-        ],
+            buildWidgetPreview(),
+            SizedBox(height: 20),
+          ],
+        ),
       ),
     );
   }
@@ -67,7 +72,7 @@ class SelectedWidgetDetails extends StatelessWidget {
       case WidgetType.zikr:
         return ElevatedButton(onPressed: () {}, child: Text('مثال زر'));
       case WidgetType.stickyNote:
-        return TextField(decoration: InputDecoration(labelText: 'مثال حقل نص'));
+        return StickyNoteComposer(onSend: onSend);
       case WidgetType.moment:
         return Container(
           width: 100,
