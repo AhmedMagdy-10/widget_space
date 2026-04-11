@@ -61,7 +61,9 @@ class ChatScreenViewBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: SkeuomorphicChatInput(
-              onSend: (b) {},
+              onSend: (b) {
+                // Handle sending message
+              },
               onPlusTap: () {
                 showWidgetPicker(context: context, onSend: (type, data) {});
               },

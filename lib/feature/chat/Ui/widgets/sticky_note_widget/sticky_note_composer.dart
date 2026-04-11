@@ -1,13 +1,10 @@
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:widget_space/core/utils/app_colors.dart';
-import 'package:widget_space/core/utils/app_text_styles.dart';
-import 'package:widget_space/core/utils/box_shadow.dart';
+import 'package:widget_space/core/helper/widgets_type.dart';
 import 'package:widget_space/core/widgets/field_label.dart';
 import 'package:widget_space/core/widgets/limit_porgress_bar.dart';
-import 'package:widget_space/feature/chat/Ui/widgets/sticky_main_screen_perview.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/sticky_note_widget/sticky_main_screen_perview.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/sticky_note_widget/text_note_area.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/widget_send_button.dart';
 
 class StickyNoteComposer extends StatefulWidget {
   const StickyNoteComposer({super.key, required this.onSend});
@@ -32,7 +29,6 @@ class _StickyNoteComposerState extends State<StickyNoteComposer> {
       : _ctrl.text.trim().split(RegExp(r'\s+')).length;
 
   bool get _isOver => _charCount > _maxChars || _wordCount > _maxWords;
-  bool get _isEmpty => _ctrl.text.trim().isEmpty;
   @override
   void initState() {
     super.initState();
@@ -78,54 +74,21 @@ class _StickyNoteComposerState extends State<StickyNoteComposer> {
             isOver: _isOver,
             label: '$_charCount/$_maxChars',
           ),
-
           SizedBox(height: 16),
 
-          ElevatedButton(
-            onPressed: () => widget.onSend({'text': _ctrl.text}),
-            child: Text('إرسال الملاحظة'),
+          SendButton(
+            type: WidgetType.stickyNote,
+            enabled: !_isOver && _charCount > 0,
+            onTap: () {
+              widget.onSend({
+                'type': 'stickyNote',
+                'content': _ctrl.text.trim(),
+              });
+              Navigator.of(context).pop();
+            },
           ),
         ],
       ),
     );
   }
-}
-
-class TextNoteArea extends StatelessWidget {
-  final TextEditingController? controller;
-  final String hint;
-  final int maxLines;
-  final void Function(String)? onChanged;
-
-  const TextNoteArea({
-    super.key,
-    this.controller,
-    required this.hint,
-    this.maxLines = 3,
-    this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      color: Colors.white.withValues(alpha: 0.9),
-      borderRadius: BorderRadius.circular(14),
-      boxShadow: BoxShadowUtils.inset,
-    ),
-    child: TextField(
-      inputFormatters: [LengthLimitingTextInputFormatter(80)],
-      controller: controller,
-      onChanged: onChanged,
-      maxLines: maxLines,
-      minLines: maxLines,
-      style: TextStyles.bold16.copyWith(color: AppColors.textHint),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: TextStyles.bold16.copyWith(color: AppColors.textHint),
-        border: InputBorder.none,
-        contentPadding: const EdgeInsets.all(13),
-        isDense: true,
-      ),
-    ),
-  );
 }
