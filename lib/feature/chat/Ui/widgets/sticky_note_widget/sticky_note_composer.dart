@@ -50,6 +50,14 @@ class _StickyNoteComposerState extends State<StickyNoteComposer> {
   }
 
   @override
+  void dispose() {
+    _ctrl.dispose();
+    _focusNode.dispose();
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 16),

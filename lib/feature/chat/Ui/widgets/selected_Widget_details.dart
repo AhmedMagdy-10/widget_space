@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:widget_space/core/helper/widgets_type.dart';
+import 'package:widget_space/feature/chat/Ui/widgets/check_list_widget.dart/check_list_composer.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/limited_banner_widget.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/selected_widget_header.dart';
 import 'package:widget_space/feature/chat/Ui/widgets/sticky_note_widget/sticky_note_composer.dart';
@@ -42,10 +43,12 @@ class SelectedWidgetDetails extends StatelessWidget {
 
   Widget buildWidgetPreview() {
     switch (type) {
-      case WidgetType.zikr:
-        return ElevatedButton(onPressed: () {}, child: Text('مثال زر'));
       case WidgetType.stickyNote:
         return StickyNoteComposer(onSend: onSend);
+      case WidgetType.checklist:
+        return CheckListComposer(onSend: onSend);
+      case WidgetType.zikr:
+        return ElevatedButton(onPressed: () {}, child: Text('مثال زر'));
       case WidgetType.moment:
         return Container(
           width: 100,
