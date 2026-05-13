@@ -1,0 +1,103 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:widget_space/core/helper/widgets_type.dart';
+import 'package:widget_space/core/utils/app_colors.dart';
+import 'package:widget_space/core/utils/app_text_styles.dart';
+
+class WidgetTypePickerItem extends StatefulWidget {
+  final WidgetType type;
+  final VoidCallback onTap;
+
+  const WidgetTypePickerItem({
+    super.key,
+    required this.type,
+    required this.onTap,
+  });
+
+  @override
+  State<WidgetTypePickerItem> createState() => _WidgetTypePickerItemState();
+}
+
+class _WidgetTypePickerItemState extends State<WidgetTypePickerItem> {
+  bool _pressed = false;
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() => _pressed = true);
+        HapticFeedback.selectionClick();
+      },
+      onTapUp: (_) {
+        setState(() => _pressed = false);
+        widget.onTap();
+      },
+      onTapCancel: () => setState(() => _pressed = false),
+      child: Container(
+        padding: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor,
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            // الظل الغامق للأسفل واليمين
+            const BoxShadow(
+              color: AppColors.shadowDark,
+              offset: Offset(4, 4),
+              blurRadius: 8,
+            ),
+            // الظل الفاتح للأعلى واليسار (تأثير الضوء)
+            const BoxShadow(
+              color: AppColors.shadowLight,
+              offset: Offset(-4, -4),
+              blurRadius: 8,
+            ),
+          ],
+        ),
+        child: Stack(
+          children: [
+            Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+
+                children: [
+                  Text(
+                    widget.type.emoji,
+                    style: TextStyles.bold28.copyWith(fontSize: 35),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    widget.type.label,
+                    textAlign: TextAlign.center,
+                    style: TextStyles.semiBold13.copyWith(
+                      fontSize: 14,
+
+                      color: AppColors.text,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 6),
+
+            Positioned(
+              top: -6,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                decoration: BoxDecoration(
+                  color: AppColors.lightseconderyColor.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  widget.type.limit.limitLabel,
+                  textAlign: TextAlign.center,
+                  style: TextStyles.medium12.copyWith(
+                    color: AppColors.lightseconderyColor,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
